@@ -5,11 +5,7 @@ const int WE = 3;
 const int OE = 4;
 
 #include <avr/progmem.h>
-// 1 195 227 
-// 2 138 208
-// 3 1 139
-//4 0 1
-// 
+
 PROGMEM prog_uint8_t ROM[16384] = 
 
 {0xF3,0xC3,0x8A,0x01,0x00,0x00,0x00,0x00,0xC3,0x24,0x01,0x00,0x00,0x00,0x00,0x00,0xC3,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0xC3,0x54,0x01,0xFF,0xFF,0xFF,0xFF,0xFF
@@ -533,6 +529,7 @@ void setup() {
 	DDRA=B11111111;
 	DDRC=B11111111;
 	DDRL=B00000000;
+
 	digitalWrite(CE, HIGH);
 	digitalWrite(WE, HIGH);
 	digitalWrite(OE, HIGH);	pinMode(CE, OUTPUT);
@@ -545,106 +542,17 @@ void setup() {
 	Serial.begin(115200);
 	PORTA=0;
 	PORTC=0;
-//	PORTL=9;
 
 	delay(2000);
 
-/*	for (int i=0;i<16384;i++)
+	for (int i=0;i<16384;i++)
 	{
 		Serial.print("Writing byte number: ");
 		Serial.print(i);
 		Serial.print("\n");
 		progmem_temp = pgm_read_byte_far(ROM+i);
 		program(i/256,i%256,progmem_temp);
-	}*/
-//	program(0x00,0x00,0xF3);
-//	program(0x00,0x01,0xC3);
-//	program(0x00,0x02,0x8A);
-
-	/*program(1/256,1%256,0);
-	program(2/256,2%256,0);
-	program(3/256,3%256,0);
-	program(4/256,4%256,0);
-
-	program(1/256,1%256,255);
-	program(2/256,2%256,255);
-	program(3/256,3%256,255);
-	program(4/256,4%256,255);
-*/
-/*	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);
-	program(1/256,1%256,195);
-	program(2/256,2%256,138);
-	program(3/256,3%256,1);
-	program(4/256,4%256,0);*/
-
-//	program(1027/256,1027%256,23);
-//	program(1029/256,1029%256,30);
-	//program(8195/256,8195%256,195);
-
-
-//	program(8195/256,8195%256,195);
-//	program(8196/256,8196%256,164);
-
-
-//	program(8192/256,8192%256,195);
-//	program(8193/256,8193%256,6);
-//	program(8194/256,8194%256,32);
-
+	}
 
 	for (int i=0;i<16384;i++)
 	{
@@ -652,7 +560,6 @@ void setup() {
 		Serial.print(i);
 		Serial.print("    ");
 		progmem_temp = pgm_read_byte_far(ROM+i);
-//		program(0x00,i,progmem_temp);
 		Serial.print(progmem_temp);
 		Serial.print("   ");
 		Serial.print(read(i/256,i%256));
@@ -661,21 +568,6 @@ void setup() {
 		Serial.print("\n ");
 	}
 	while(1){}
-
-	for(int i=0;i<100;i+=2)
-	{
-		Serial.print(i);
-		Serial.print("\n");
-		program((i+1)/256,(i+1)%256,0xFF);
-		program(i/256,i%256,0xFF);
-	}	
-	for(int i=0;i<100;i++)
-	{
-		Serial.print(read(i/256,uint8_t(i%256)));
-		Serial.print("  \n");
-	}
-
-while(1){}
 }
 
 void loop() {
@@ -686,64 +578,38 @@ uint8_t read(uint8_t msb, uint8_t lsb)
 {
 	DDRL=B00000000;
 	uint8_t eepromtest;
-		PORTA=msb;
-		PORTC=lsb;
-//		delayMicroseconds(1000);
-		digitalWrite(CE, LOW);
-//		delayMicroseconds(1000);
-		digitalWrite(OE, LOW);
-//		delayMicroseconds(1000);
-//		delay(50);
+	PORTA=msb;
+	PORTC=lsb;
+	digitalWrite(CE, LOW);
+	digitalWrite(OE, LOW);
 
-		digitalWrite(OE,HIGH);
-		eepromtest=PINL;
-		digitalWrite(CE, HIGH);
-		return eepromtest;
+	digitalWrite(OE,HIGH);
+	eepromtest=PINL;
+	digitalWrite(CE, HIGH);
+	return eepromtest;
 } 
 
 void program(uint8_t msb, uint8_t lsb, uint8_t bytes)
 {
-		PORTA=msb;
-		PORTC=lsb;
-		DDRL=B11111111;
+	PORTA=msb;
+	PORTC=lsb;
+	DDRL=B11111111;
 	PORTL=bytes;
-		delay(100);
+	delay(100);
 
 	digitalWrite(OE, HIGH);
 	delay(100);
 	digitalWrite(CE, LOW);
-		delay(100);
+	delay(100);
 
 	digitalWrite(WE, LOW);
 	delay(100);
 	digitalWrite(WE, HIGH);
-		delay(100);
+	delay(100);
 
 	digitalWrite(CE, HIGH);
-		delay(100);
+	delay(100);
 
 	delayMicroseconds(1);
 	DDRL=B00000000;
-}
-
-void fixit(uint8_t i)
-{
-	progmem_temp = pgm_read_byte_far(ROM+i);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	program(i/256,i%256,progmem_temp);
-	delay(2000);
-	Serial.print("testing!!!");
-	delay(2000);
-	if (progmem_temp == read(i/256,i%256)) {Serial.print("PASS\n");}
-		else {Serial.print("\nfail FUCK ");Serial.print(i);while(1){};}
-
 }
